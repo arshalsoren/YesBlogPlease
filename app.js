@@ -2,6 +2,7 @@ const express = require('express');
 const { networkInterfaces } = require('os');
 const path = require('path');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 mongoose.connect('mongodb://localhost/backend-node');
 let db = mongoose.connection;
@@ -26,6 +27,12 @@ let Page = require('./models/page');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+// body parser middleware
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
+
 // Home Route
 app.get('/', (request, response) => {
     Page.find({}, (err, pages) => {
@@ -40,38 +47,31 @@ app.get('/', (request, response) => {
         }
     });
 
-    // let newPage = [
-    //     {
-    //         id: 1,
-    //         title: "Blog #1",
-    //         author: "John Doe",
-    //         body: "Welcome to my blog one"
-    //     },
-    //     {
-    //         id: 2,
-    //         title: "Blog #2",
-    //         author: "Edgar Allan Poe",
-    //         body: "Welcome to my blog two"
-    //     },
-    //     {
-    //         id: 3,
-    //         title: "Blog #3",
-    //         author: "Elton JOhn",
-    //         body: "Welcome to my blog three"
-    //     }
-    // ]
-    // response.render('index', {
-    //     title: "Blogs",
-    //     pages: newPage
-    // });
 });
 
 // Add New Page
-app.get('/pages/new', (request, response) => {
-    response.render('new_page1', {
-        title: "New Page #1"
+app.get('/pages/add', (request, response) => {
+    response.render('add_page', {
+        title: "Add Page"
     });
 })
+
+// Add Submit POST Route
+app.post('/pages/add', (request, response) => {
+    let page = new Page();
+    page.title = request.body.title;
+    page.author = request.body.author;
+    page.body = request.body.body;
+
+    page.save((err) => {
+        if (err) {
+            console.log(err); return;
+        }
+        else {
+            response.redirect('/');
+        }
+    });
+});
 
 
 // Start Server
