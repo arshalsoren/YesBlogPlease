@@ -2,7 +2,17 @@ doctype html
 html 
     head 
         title Backend App
+        link(rel="stylesheet", href="/bower_components/bootstrap/dist/css/bootstrap.css")
     body
+    .container
+        header.d-flex.justify-content-center.py-3
+            ul.nav.nav-pills
+                li.nav-item
+                    a.nav-link.active(href='/' aria-current='page') Home
+                li.nav-item
+                    a.nav-link(href='/pages/add') Add Pages
+
+    .container
         block content 
         br
         hr

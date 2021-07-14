@@ -2,6 +2,7 @@ extends layout
 
 block content
     h1 #{title}
-    ul
+    ul.list-group 
         each page, i in pages 
-            li=page.author
+            li.list-group-item
+                a(href="/page/"+page._id)=page.author
