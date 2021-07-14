@@ -33,6 +33,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+// Set Public Folder
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Home Route
 app.get('/', (request, response) => {
     Page.find({}, (err, pages) => {
@@ -47,6 +50,15 @@ app.get('/', (request, response) => {
         }
     });
 
+});
+
+// Get Single Page
+app.get("/page/:id", (request, response) => {
+    Page.findById(request.params.id, (err, page) => {
+        response.render('page', {
+            page: page
+        });
+    });
 });
 
 // Add New Page
