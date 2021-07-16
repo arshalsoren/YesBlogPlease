@@ -4,3 +4,6 @@ block content
     h1=page.title 
     h5 Written by #{page.author}
     p=page.body
+    hr
+    a.btn.btn-default(href='/page/edit/'+page._id) Edit
+    a.btn.btn-danger.delete-page(href='#',data-id=page._id) Delete
