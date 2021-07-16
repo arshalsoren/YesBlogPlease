@@ -85,6 +85,46 @@ app.post('/pages/add', (request, response) => {
     });
 });
 
+// Load Edit Form
+app.get("/page/edit/:id", (request, response) => {
+    Page.findById(request.params.id, (err, page) => {
+        response.render('edit_page', {
+            title: 'Edit Title',
+            page: page
+        });
+    });
+});
+
+// Update Submit POST Route
+app.post('/pages/edit/:id', (request, response) => {
+    let page = {};
+    page.title = request.body.title;
+    page.author = request.body.author;
+    page.body = request.body.body;
+
+    let query = { _id: request.params.id }
+
+    Page.updateOne(query, page, (err) => {
+        if (err) {
+            console.log(err); return;
+        }
+        else {
+            response.redirect('/');
+        }
+    });
+});
+
+// Delete Page
+app.delete('/page/:id', (request, response) => {
+    let query = { _id: request.params.id }
+
+    Page.deleteOne(query, (err) => {
+        if (err) {
+            console.log(err);
+        }
+        response.send('Success');
+    });
+});
 
 // Start Server
 app.listen(3000, () => {
