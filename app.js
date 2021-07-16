@@ -114,7 +114,7 @@ app.post('/pages/edit/:id', (request, response) => {
     });
 });
 
-// Delete Page
+// Delete Page Route
 app.delete('/page/:id', (request, response) => {
     let query = { _id: request.params.id }
 
