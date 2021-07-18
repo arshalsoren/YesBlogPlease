@@ -3,13 +3,16 @@ const { networkInterfaces } = require('os');
 const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+// const expressValidator = require('express-validator');
+const flash = require('connect-flash');
+const session = require('express-session');
 
 mongoose.connect('mongodb://localhost/backend-node');
 let db = mongoose.connection;
 
 // Check connection
 db.once('open', () => {
-    console.log('connected to mongoDB');
+    console.log('Connected to MongoDB');
 })
 
 // Check for db errors
@@ -36,6 +39,42 @@ app.use(bodyParser.json())
 // Set Public Folder
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Express Session Middleware
+app.use(session({
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true,
+}));
+
+// Express Messages Middleware
+app.use(require('connect-flash')());
+app.use(function (req, res, next) {
+    res.locals.messages = require('express-messages')(req, res);
+    next();
+});
+
+// Express Validator Middleware
+const { body, validationResult } = require('express-validator');
+app.post(
+    '/user',
+    // username must be an email
+    body('username').isEmail(),
+    // password must be at least 5 chars long
+    body('password').isLength({ min: 5 }),
+    (req, res) => {
+        // Finds the validation errors in this request and wraps them in an object with handy functions
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        User.create({
+            username: req.body.username,
+            password: req.body.password,
+        }).then(user => res.json(user));
+    },
+);
+
 // Home Route
 app.get('/', (request, response) => {
     Page.find({}, (err, pages) => {
@@ -49,6 +88,7 @@ app.get('/', (request, response) => {
             });
         }
     });
+
 });
 
 // Get Single Page
@@ -79,6 +119,7 @@ app.post('/pages/add', (request, response) => {
             console.log(err); return;
         }
         else {
+            request.flash('success', 'Page Added');
             response.redirect('/');
         }
     });
@@ -121,6 +162,7 @@ app.delete('/page/:id', (request, response) => {
         if (err) {
             console.log(err);
         }
+        request.flash('success', 'Page Updated');
         response.send('Success');
     });
 });
