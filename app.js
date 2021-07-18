@@ -49,7 +49,6 @@ app.get('/', (request, response) => {
             });
         }
     });
-
 });
 
 // Get Single Page
