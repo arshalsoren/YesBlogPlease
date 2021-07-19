@@ -15,6 +15,11 @@ html
 
     .container
         != messages('message',locals)
+        //- if errors   
+        //-     each error , i in errors 
+        //-     div(class="alert alert-danger") #{error.msg}
+        
+        //- to be added only when the checkBody() function issue gets resolved. 
         block content 
         br
         hr

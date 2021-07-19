@@ -3,7 +3,7 @@ const { networkInterfaces } = require('os');
 const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-// const expressValidator = require('express-validator');
+const { body, validationResult } = require('express-validator');
 const flash = require('connect-flash');
 const session = require('express-session');
 
@@ -54,7 +54,6 @@ app.use(function (req, res, next) {
 });
 
 // Express Validator Middleware
-const { body, validationResult } = require('express-validator');
 app.post(
     '/user',
     // username must be an email
@@ -109,20 +108,37 @@ app.get('/pages/add', (request, response) => {
 
 // Add Submit POST Route
 app.post('/pages/add', (request, response) => {
-    let page = new Page();
-    page.title = request.body.title;
-    page.author = request.body.author;
-    page.body = request.body.body;
+    // request.checkBody('title', 'Title is required').notEmpty();
+    // request.checkBody('author', 'Author is required').notEmpty();
+    // request.checkBody('body', 'Body is required').notEmpty();
+    
+    // for some reason checkBody() is not a function and hence an error is generated. 
+    // If you know how to resolve the issue, feel free to create and issue
 
-    page.save((err) => {
-        if (err) {
-            console.log(err); return;
-        }
-        else {
-            request.flash('success', 'Page Added');
-            response.redirect('/');
-        }
-    });
+    // Get Error
+    let errors = validationResult(request);
+    if (errors) {
+        response.render('add_page', {
+            title: "Add Page",
+            errors: errors
+        });
+    }
+    else {
+        let page = new Page();
+        page.title = request.body.title;
+        page.author = request.body.author;
+        page.body = request.body.body;
+
+        page.save((err) => {
+            if (err) {
+                console.log(err); return;
+            }
+            else {
+                request.flash('success', 'Page Added');
+                response.redirect('/');
+            }
+        });
+    }
 });
 
 // Load Edit Form
@@ -149,6 +165,7 @@ app.post('/pages/edit/:id', (request, response) => {
             console.log(err); return;
         }
         else {
+            request.flash('success', 'Page Updated');
             response.redirect('/');
         }
     });
@@ -162,7 +179,7 @@ app.delete('/page/:id', (request, response) => {
         if (err) {
             console.log(err);
         }
-        request.flash('success', 'Page Updated');
+        request.flash('danger', 'Page Deleted');
         response.send('Success');
     });
 });
