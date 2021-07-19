@@ -16,7 +16,8 @@ html
     .container
         != messages('message',locals)
         if errors
-            div(class="alert alert-danger") Please fill everything before submitting!
+            each error,i in errors
+                div(class="alert alert-danger") #{error.msg}
         block content 
         br
         hr

@@ -94,11 +94,11 @@ app.post('/pages/add',
 
     // Get Error
     (request, response) => {
-        const errors = validationResult(request);
+        let errors = validationResult(request);
         if (!errors.isEmpty()) {
             response.render('add_page', {
-                title: "Add Page",
-                errors: errors
+                title: 'Add Page',
+                errors: errors.array()
             });
         }
         else {
