@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
 
 // Express Validator Middleware
 const { body, validationResult } = require('express-validator');
