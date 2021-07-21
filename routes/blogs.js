@@ -47,7 +47,8 @@ router.post('/add',
                 }
             });
         }
-    });
+    }
+);
 
 // Load Edit Form
 router.get("/edit/:id", (request, response) => {
