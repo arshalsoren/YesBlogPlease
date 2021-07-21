@@ -1,18 +1,27 @@
 doctype html
 html 
     head 
-        title Welcome to JustAnotherBlog
+        title Welcome to JustAnotherBlog!
         link(rel="stylesheet", href="/bower_components/bootstrap/dist/css/bootstrap.css")
         link(rel="stylesheet", href="/css/style.css")
     body
-    .container
-        header.d-flex.justify-content-center.py-3
-            ul.nav.nav-pills
-                li.nav-item
-                    a.nav-link.active(href='/' aria-current='blog') Home
-                li.nav-item
-                    a.nav-link(href='/blogs/add') Add Blogs
+    header.p-3.bg-dark.text-white
+        .container
+            .d-flex.flex-wrap.align-items-center.justify-content-center.justify-content-lg-start
+                h3 JustAnotherBlog! &emsp; 
+                a.d-flex.align-items-center.mb-2.mb-lg-0.text-white.text-decoration-none(href='/')
+            
+                ul.nav.col-12.col-lg-auto.me-lg-auto.mb-2.justify-content-center.mb-md-0
+                    li
+                        a.nav-link.px-2.text-secondary(href='/') Home
+                    li
+                        a.nav-link.px-2.text-white(href='/blogs/add') Add Blog
+                                
+                .text-end
+                    a.btn.btn-outline-light.me-2(href='/users/login' type='button') Log In
+                    a.btn.btn-warning(href='/users/register' type='button') Sign Up
 
+    br
     .container
         != messages('message',locals)
         if errors
