@@ -1,0 +1,9 @@
+extends layout 
+
+block content
+    h1=blog.title 
+    h5 Written by #{blog.author}
+    p=blog.body
+    hr
+    a.btn.btn-default(href='/blogs/edit/'+blog._id) Edit
+    a.btn.btn-danger.delete-blog(href='#',data-id=blog._id) Delete

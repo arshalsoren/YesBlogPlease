@@ -3,6 +3,6 @@ extends layout
 block content
     h1 #{title}
     ul.list-group 
-        each page, i in pages 
+        each blog, i in blogs 
             li.list-group-item
-                a(href="/pages/"+page._id)=page.title
+                a(href="/blogs/"+blog._id)=blog.title

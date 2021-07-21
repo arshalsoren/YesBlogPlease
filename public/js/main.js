@@ -1,12 +1,12 @@
 $(document).ready(() => {
-    $('.delete-page').on('click', (e) => {
+    $('.delete-blog').on('click', (e) => {
         $target = $(e.target);
         const id = $target.attr('data-id');
         $.ajax({
             type: 'DELETE',
-            url: '/pages/' + id,
+            url: '/blogs/' + id,
             success: (response) => {
-                alert('Deleting Page');
+                alert('Deleting Blog');
                 window.location.href = '/';
             },
             error: (err) => {

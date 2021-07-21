@@ -1,7 +1,7 @@
 doctype html
 html 
     head 
-        title Backend App
+        title Welcome to Your Blog
         link(rel="stylesheet", href="/bower_components/bootstrap/dist/css/bootstrap.css")
         link(rel="stylesheet", href="/css/style.css")
     body
@@ -9,9 +9,9 @@ html
         header.d-flex.justify-content-center.py-3
             ul.nav.nav-pills
                 li.nav-item
-                    a.nav-link.active(href='/' aria-current='page') Home
+                    a.nav-link.active(href='/' aria-current='blog') Home
                 li.nav-item
-                    a.nav-link(href='/pages/add') Add Pages
+                    a.nav-link(href='/blogs/add') Add Blogs
 
     .container
         != messages('message',locals)

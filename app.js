@@ -23,7 +23,7 @@ db.on('error', (err) => {
 const app = express();
 
 // Bring in models
-let Page = require('./models/page');
+let Blog = require('./models/blog');
 
 // Load View Engine
 app.set('views', path.join(__dirname, 'views'));
@@ -54,22 +54,22 @@ app.use(function (req, res, next) {
 
 // Home Route
 app.get('/', (request, response) => {
-    Page.find({}, (err, pages) => {
+    Blog.find({}, (err, blogs) => {
         if (err) {
             console.log(err);
         }
         else {
             response.render('index', {
-                title: 'Pages',
-                pages: pages
+                title: 'Blogs',
+                blogs: blogs
             });
         }
     });
 
 });
 // Route Files
-let pages = require('./routes/pages');
-app.use('/pages', pages);
+let blogs = require('./routes/blogs');
+app.use('/blogs', blogs);
 
 // Start Server
 app.listen(3000, () => {

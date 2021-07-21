@@ -1,18 +1,19 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 
 // Express Validator Middleware
 const { body, validationResult } = require('express-validator');
 const { check } = require('express-validator');
 
 // Bring in models
-let Page = require('../models/page');
+let Blog = require('../models/blog');
 
 
-// Add New Page
+// Add New Blog
 router.get('/add', (request, response) => {
-    response.render('add_page', {
-        title: "Add Page"
+    response.render('add_blog', {
+        title: "Add Blog"
     });
 })
 
@@ -26,23 +27,23 @@ router.post('/add',
     (request, response) => {
         let errors = validationResult(request);
         if (!errors.isEmpty()) {
-            response.render('add_page', {
-                title: 'Add Page',
+            response.render('add_blog', {
+                title: 'Add Blog',
                 errors: errors.array()
             });
         }
         else {
-            let page = new Page();
-            page.title = request.body.title;
-            page.author = request.body.author;
-            page.body = request.body.body;
+            let blog = new Blog();
+            blog.title = request.body.title;
+            blog.author = request.body.author;
+            blog.body = request.body.body;
 
-            page.save((err) => {
+            blog.save((err) => {
                 if (err) {
                     console.log(err); return;
                 }
                 else {
-                    request.flash('success', 'Page Added');
+                    request.flash('success', 'Blog Added');
                     response.redirect('/');
                 }
             });
@@ -51,52 +52,52 @@ router.post('/add',
 
 // Load Edit Form
 router.get("/edit/:id", (request, response) => {
-    Page.findById(request.params.id, (err, page) => {
-        response.render('edit_page', {
+    Blog.findById(request.params.id, (err, blog) => {
+        response.render('edit_blog', {
             title: 'Edit Title',
-            page: page
+            blog: blog
         });
     });
 });
 
 // Update Submit POST Route
 router.post('/edit/:id', (request, response) => {
-    let page = {};
-    page.title = request.body.title;
-    page.author = request.body.author;
-    page.body = request.body.body;
+    let blog = {};
+    blog.title = request.body.title;
+    blog.author = request.body.author;
+    blog.body = request.body.body;
 
     let query = { _id: request.params.id }
 
-    Page.updateOne(query, page, (err) => {
+    Blog.updateOne(query, blog, (err) => {
         if (err) {
             console.log(err); return;
         }
         else {
-            request.flash('success', 'Page Updated');
+            request.flash('success', 'Blog Updated');
             response.redirect('/');
         }
     });
 });
 
-// Delete Page Route
+// Delete Blog Route
 router.delete('/:id', (request, response) => {
     let query = { _id: request.params.id }
 
-    Page.deleteOne(query, (err) => {
+    Blog.deleteOne(query, (err) => {
         if (err) {
             console.log(err);
         }
-        request.flash('success', 'Page Deleted');
+        request.flash('success', 'Blog Deleted');
         response.send('Success');
     });
 });
 
-// Get Single Page
+// Get Single Blog
 router.get("/:id", (request, response) => {
-    Page.findById(request.params.id, (err, page) => {
-        response.render('page', {
-            page: page
+    Blog.findById(request.params.id, (err, blog) => {
+        response.render('blog', {
+            blog: blog
         });
     });
 });
