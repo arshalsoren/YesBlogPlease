@@ -8,9 +8,9 @@ html
     header.p-3.bg-dark.text-white
         .container
             .d-flex.flex-wrap.align-items-center.justify-content-center.justify-content-lg-start
-                h3 YesBlogPlease! &emsp; 
                 a.d-flex.align-items-center.mb-2.mb-lg-0.text-white.text-decoration-none(href='/')
-            
+                h3 YesBlogPlease! &emsp; 
+    
                 ul.nav.col-12.col-lg-auto.me-lg-auto.mb-2.justify-content-center.mb-md-0
                     li
                         a.nav-link.px-2.text-secondary(href='/') Home
@@ -20,6 +20,7 @@ html
                                 
                 .text-end
                 if user 
+                    h5.d-flex.flex-wrap.align-items-center.justify-content-center.justify-content-lg-end #{user.name} &emsp;
                     a.btn.btn-outline-light.me-2(href='/users/logout' type='button') Log Out
                 else
                     a.btn.btn-outline-light.me-2(href='/users/login' type='button') Log In
