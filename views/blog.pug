@@ -2,8 +2,10 @@ extends layout
 
 block content
     h1=blog.title 
-    h5 Written by #{blog.author}
+    h5 Written by #{author}
     p=blog.body
     hr
-    a.btn.btn-default(href='/blogs/edit/'+blog._id) Edit
-    a.btn.btn-danger.delete-blog(href='#',data-id=blog._id) Delete
+    if user 
+        if user.id==blog.author
+            a.btn.btn-default(href='/blogs/edit/'+blog._id) Edit
+            a.btn.btn-danger.delete-blog(href='#',data-id=blog._id) Delete
