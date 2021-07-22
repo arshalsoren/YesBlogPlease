@@ -1,14 +1,14 @@
 doctype html
 html 
     head 
-        title Welcome to JustAnotherBlog!
+        title Welcome to YesBlogPlease!
         link(rel="stylesheet", href="/bower_components/bootstrap/dist/css/bootstrap.css")
         link(rel="stylesheet", href="/css/style.css")
     body
     header.p-3.bg-dark.text-white
         .container
             .d-flex.flex-wrap.align-items-center.justify-content-center.justify-content-lg-start
-                h3 JustAnotherBlog! &emsp; 
+                h3 YesBlogPlease! &emsp; 
                 a.d-flex.align-items-center.mb-2.mb-lg-0.text-white.text-decoration-none(href='/')
             
                 ul.nav.col-12.col-lg-auto.me-lg-auto.mb-2.justify-content-center.mb-md-0
@@ -18,6 +18,9 @@ html
                         a.nav-link.px-2.text-white(href='/blogs/add') Add Blog
                                 
                 .text-end
+                if user 
+                    a.btn.btn-outline-light.me-2(href='/users/logout' type='button') Log Out
+                else
                     a.btn.btn-outline-light.me-2(href='/users/login' type='button') Log In
                     a.btn.btn-warning(href='/users/register' type='button') Sign Up
 
