@@ -5,8 +5,10 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const flash = require('connect-flash');
 const session = require('express-session');
+const passport = require('passport');
+const config = require('./config/database');
 
-mongoose.connect('mongodb://localhost/backend-node');
+mongoose.connect(config.database);
 let db = mongoose.connection;
 
 // Check connection
@@ -52,6 +54,17 @@ app.use(function (req, res, next) {
     next();
 });
 
+// Passport Config
+require('./config/passport')(passport);
+// Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('*', (req, res, next) => {
+    res.locals.user = req.user || null;
+    next();
+});
+
 // Home Route
 app.get('/', (request, response) => {
     Blog.find({}, (err, blogs) => {
@@ -67,6 +80,7 @@ app.get('/', (request, response) => {
     });
 
 });
+
 // Route Files
 let blogs = require('./routes/blogs');
 app.use('/blogs', blogs);
