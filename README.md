@@ -35,7 +35,7 @@
 To get a local copy up and running follow these simple example steps.
 
 1. `git clone https://github.com/arshalsoren/YesBlogPlease.git`
-2. `cd todo`
+2. `cd YesBlogPlease`
 3. Install the dependencies
     ```sh
     $ npm install
@@ -68,5 +68,5 @@ Give us a ⭐️ if you like this project!
 ## Acknowledgments
 
 - Brad Traversy 
-- [YouTube](https://www.youtube.com/user/TechGuyWeb)
-- [GitHub](https://github.com/bradtraversy)
+  - [YouTube](https://www.youtube.com/user/TechGuyWeb)
+  - [GitHub](https://github.com/bradtraversy)
