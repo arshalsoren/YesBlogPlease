@@ -69,4 +69,4 @@ Give us a ⭐️ if you like this project!
 
 - Brad Traversy 
 - [YouTube](https://www.youtube.com/user/TechGuyWeb)
-- [GitHub](https://github.com/bradtraversy))
+- [GitHub](https://github.com/bradtraversy)
