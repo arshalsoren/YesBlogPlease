@@ -17,7 +17,6 @@
 3. Add a feature to add images in blogs.
 4. Add hover effects.
 
-
 ## Built With
 
 - NodeJS
@@ -38,9 +37,13 @@ To get a local copy up and running follow these simple example steps.
 1. `git clone https://github.com/arshalsoren/YesBlogPlease.git`
 2. `cd todo`
 3. Install the dependencies
-    > $ npm install
+    ```sh
+    $ npm install
+    ```
 4. Run app
-    > $ npm start
+    ```sh
+    $ npm start
+    ```
 
 ### Prerequisites
 
